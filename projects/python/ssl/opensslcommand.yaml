@@ -1,0 +1,6 @@
+- mkdir -p /etc/CA/clients/XXX
+- openssl genrsa -out /etc/CA/clients/XXX/XXX.key 4096
+- openssl req -new -key /etc/CA/clients/XXX/XXX.key -out /etc/CA/clients/XXX/XXX.csr -subj /C=RU/ST=KHMAO/L=YUGORSK/O=YUPK/OU=ISIP/CN=XXX
+- openssl x509 -req -days 60  -CA /etc/CA/ca.crt -CAkey /etc/CA/ca.key -set_serial YYY -extfile /etc/CA/openssl.cnf -extensions v3_req -in /etc/CA/clients/XXX/XXX.csr -out /etc/CA/clients/XXX/XXX.pem
+- zip -j /etc/CA/clients/XXX/XXX.zip  /etc/CA/ca.crt  /etc/CA/clients/XXX/clientVPN.ovpn /etc/CA/dh2048.pem /etc/CA/clients/XXX/XXX.pem  /etc/CA/clients/XXX/XXX.key  /etc/openvpn/ta.key
+- scp /etc/CA/clients/XXX/XXX.zip 10.10.4.9:/root/openvpnclients
