@@ -35,7 +35,7 @@ def create_temp_cpp(in_file):
     with open(s_file) as f1:
         with open(o_file, 'w') as f2:
             for i in f1:
-                o_text = i.replace('main()','main1()')
+                o_text = i.replace('main','main1')
                 f2.write(o_text)
     #print(f'task_{fname[5:]}')
     #pass

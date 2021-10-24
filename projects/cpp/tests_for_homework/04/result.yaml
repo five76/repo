@@ -1,5 +1,10 @@
 test_04_01.cpp: PASSED
-test_04_02.cpp:
-- none
-test_04_03.cpp:
-- none
+test_04_02.cpp: PASSED
+test_04_03.cpp: PASSED
+test_04_04.cpp: PASSED
+test_04_05.cpp: none
+test_04_06.cpp: PASSED
+test_04_07.cpp: none
+test_04_08.cpp: none
+test_04_09.cpp: none
+test_04_10.cpp: none
