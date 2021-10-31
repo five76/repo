@@ -1,0 +1,19 @@
+touch /etc/pki/CA/index.txt
+
+openssl ca -keyfile /etc/CA/ca.key -cert /etc/CA/ca.crt -revoke isip20_01.pem -config /etc/CA/openssl.cnf
+
+vim /etc/pki/CA/crlnumber
+add number serial into vim /etc/pki/CA/crlnumber
+
+openssl ca -keyfile /etc/CA/ca.key -cert /etc/CA/ca.crt -gencrl -out /etc/CA/revoked/crl.pem
+
+
+
+
+copy  /etc/CA/revoked/crl.pem to /etc/openvpn/
+
+cp /etc/CA/revoked/crl.pem /etc/openvpn/
+
+add string into /etc/openvpn/server.conf
+
+crl-verify keys/crl.pem
