@@ -9,23 +9,8 @@ from workingrepo import *
 with open(path + 'clients.yaml') as f:
    clients = yaml.safe_load(f)
 pprint (clients)
-#clients=['isip20_02','isip20_03']
-
-#with open(path + 'chapters.yaml') as f:
-#    chapters = yaml.safe_load(f)
-#pprint (chapters)
-
-
-#clone_repo(clients)
-
-#---------------------------------------------------------
-# Create folders 
-#create_folders(clients, chapters,folders)
-
-#-----------------------------------------------------
 with open(path + 'add_ex_repo.yaml') as f:
    dict_add_ex_repo = yaml.safe_load(f)
-#pprint (add_ex_repo)
 
 for k,v in dict_add_ex_repo.items():
     #print(k)

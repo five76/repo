@@ -4,6 +4,7 @@ import subprocess
 import os
 import time
 import re
+import glob
 
 path =os.getcwd()+'/'
 path_update = '/home/ubuntu/oapisip/comp/'
@@ -187,6 +188,36 @@ def copy_to_tests(clients):
                         comm = f'mkdir -p {dd}'
                         r = subprocess.run(comm.split())
                     comm = f'cp  /home/ubuntu/oapisip/comp/{k}/exercises/{num_chap[ch]}/home/{i} {path_copy}{k}/{ch}/{i}'
+                    r = subprocess.run(comm.split())
+                    
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def copy_tests_to_clients(clients):
+    """
+    Копирование файлов тестов (test_xx_xx.cpp) в каталоги с выполненными домашними заданиями
+    Путь к файлам тестов перечислены в tests.yaml
+    """
+    print('copy_tests_to_client')
+    
+    with open(path + 'tests.yaml') as f:
+        tests_dir = yaml.safe_load(f)
+    for cl in clients:
+        for k,v in tests_dir.items():
+            #print(k)
+            #print(len(v))
+            #if len(v)  != 0:
+            #    for i  in v:
+            #        ch  = i[5:7]
+            dd =  f'{path_copy}{cl}/{k}'
+            test_files=glob.glob(f'{v}/test*')
+            if os.path.exists(dd):
+                for ff in test_files:
+
+            #    comm = f'mkdir -p {dd}'
+            #    r = subprocess.run(comm.split())
+                    comm = f'cp {ff} {dd}'
+                #print (comm)
                     r = subprocess.run(comm.split())
 #++++++++++++++++++++++++++++++++++++++++++++++++++
 
