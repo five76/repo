@@ -41,7 +41,7 @@ def create_temp_cpp(in_file):
     #pass
     return 1
 
-with open(f'{d}result.yaml') as f:
+with open(f'{d}testresult.yaml') as f:
     results = yaml.safe_load(f) 
 pprint(results)
 
@@ -75,5 +75,5 @@ time.sleep(1)
 files = glob.glob(f'{d}tasktemp_*.cpp')
 for i in files:
     os.remove(i)
-with open(f'{d}result.yaml','w') as f:
+with open(f'{d}testresult.yaml','w') as f:
     yaml.dump(results, f, default_flow_style=False)
