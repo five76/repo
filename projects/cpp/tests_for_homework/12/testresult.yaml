@@ -1,4 +1,4 @@
-test_12_01.cpp: none
+test_12_01.cpp: PASSED
 test_12_02.cpp: FAILED
 test_12_03.cpp: PASSED
 test_12_04.cpp: PASSED
