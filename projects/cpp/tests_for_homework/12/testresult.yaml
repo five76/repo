@@ -1,7 +1,7 @@
 test_12_01.cpp: none
 test_12_02.cpp: FAILED
-test_12_03.cpp: none
-test_12_04.cpp: none
+test_12_03.cpp: PASSED
+test_12_04.cpp: PASSED
 test_12_05.cpp: none
 test_12_06.cpp: none
 test_12_07.cpp: none
