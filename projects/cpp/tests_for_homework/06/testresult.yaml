@@ -2,7 +2,7 @@ test_06_01.cpp: PASSED
 test_06_02.cpp: PASSED
 test_06_03.cpp: none
 test_06_04.cpp: none
-test_06_05.cpp: none
+test_06_05.cpp: PASSED
 test_06_06.cpp: none
 test_06_07.cpp: none
 test_06_08.cpp: none
