@@ -21,6 +21,7 @@ using namespace std;
     }
  }
 
+
 int main()
 {
    cout<<find_simple_number(457)<<endl;

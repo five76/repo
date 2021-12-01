@@ -7,8 +7,8 @@
 #include<stdio.h>
 #include<string> //библиотека работы со строками
 using namespace std;
-int S;
 
+int S;
 int change_num(string num, int p,int d)
 {
     S=0;

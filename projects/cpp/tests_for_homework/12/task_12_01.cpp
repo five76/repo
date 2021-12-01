@@ -19,6 +19,7 @@ double square_triangle(int a)
 
 using namespace std;
 
+
 double square_triangle(int a)
 {
         double S = (a*a)*sqrt(3)/4;

@@ -81,3 +81,35 @@ for i in files:
     os.remove(i)
 with open(f'{d}testresult.yaml','w') as f:
     yaml.dump(results, f, default_flow_style=False)
+
+with open(f'{d}testresult.yaml') as f:
+    results = yaml.safe_load(f) 
+#pprint(results)
+passed_files=[]
+failed_files=[]
+for k,v in results.items():
+    git_file = k.replace('test','task')
+    if v == 'PASSED':
+        #git_file = k.replace('test','task')
+        comm  = f'git add {git_file}'
+        #print(comm)
+        r = subprocess.run(comm.split())
+        comm  = f'git commit -m "Done {git_file}"'
+        r = subprocess.run(comm.split())
+        #print(comm)
+        comm  = f'git push origin main"'
+        #print(comm)
+        r = subprocess.run(comm.split())
+        passed_files.append(git_file)
+    else:
+        if v == 'FAILED':
+            failed_files.append(git_file)
+
+print('Successful verification and sent to github: ')
+for f in passed_files:
+    print(f)
+
+print('Failed verification: ')
+for f in failed_files:
+    print(f)
+

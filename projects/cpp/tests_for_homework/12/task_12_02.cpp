@@ -17,6 +17,7 @@
 typedef double D;
 using namespace std;
 //D square_quadr(D,D,D,D,D,D);
+
 D  square_quadr(D X, D Y, D Z, D T, D A, D B)
 {
     double result=0;

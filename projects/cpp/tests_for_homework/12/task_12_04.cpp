@@ -9,6 +9,7 @@
 #include<iostream>
 #include<cmath>
 #include<stdio.h>
+
 //#include"task_12_06.cpp"
 using namespace std;
 int result = 0;
