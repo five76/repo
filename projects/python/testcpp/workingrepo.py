@@ -10,7 +10,7 @@ path =os.getcwd()+'/'
 path_update = '/home/ubuntu/oapisip/comp/'
 path_copy = '/home/ubuntu/oapisip/comp/tests/'
 path_source =  '/home/ubuntu/oapisip/comp/oap-is-20-template/exercises/'
-num_chap = {'01':'01_','02':'02_langcpp','03':'03_linprogr','04':'04_if','05':'05_for','06':'06_while','07':'07_array','08':'array2'}
+num_chap = {'01':'01_','02':'02_langcpp','03':'03_linprogr','04':'04_if','05':'05_for','06':'06_while','07':'07_array','08':'array2','12':'12_funct'}
 with open(path + 'clients.yaml') as f:
     clients = yaml.safe_load(f)
 
@@ -128,23 +128,28 @@ def git_update(client):
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-def git_log_all(clients=[]):
+def git_log_all(clients=[],gp=False):
     """
     Выбор из репозиториев студентов имен файлов  домашних заданий, имеющих commit "Done task_xx.xx.cpp"
     Имена собираются в файл git_log_dir.yaml
+    gp - параметр, определяющий необходимость выполнить команду git pull. По-умолчанию ОТКЛ (False)
     """
 
     git_log_dir = {}
     for cl in clients:
-        git_pull(cl)
+        if gp:
+            git_pull(cl)
         print(f'git log for {cl}')
         chdir =   path_update  + cl
         os.chdir(chdir)
-        git_log = 'git log --grep=done --grep=task_' 
+        #git_log = 'git log --grep=done --grep=task_'
+        git_log = 'git log --grep=done --grep=task'
+
         #git_log = 'git log | egrep  -i \'done +task \'' 
 
         r = subprocess.run(git_log.split(),stdout=subprocess.PIPE, encoding='utf-8')
         match=re.findall(r'[Dd]one (task_\d+_\d+.cpp) *',r.stdout)
+        #match=re.findall(r'[Dd]one (task[_ ]) *',r.stdout)
         ll = list(set(match))
         #print(ll)
         git_log_dir[cl]= ll
@@ -168,7 +173,7 @@ def git_log_all(clients=[]):
 #++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def copy_to_tests(clients):
-    """
+     """
     Копирование файлов заданий (task_.xx_xx.cpp) из каталогов .../home в каталоги для проверки
     Файлы перечислены в git_log_dir.yaml
     """
@@ -176,8 +181,11 @@ def copy_to_tests(clients):
     
     with open(path + 'git_log_dir.yaml') as f:
         git_log_dir = yaml.safe_load(f)
+    
+    
     for cl in clients:
-        for k,v in git_log_dir.items():
+        #print(cl)
+         for k,v in git_log_dir.items():
             #print(k)
             #print(len(v))
             if len(v)  != 0:
@@ -187,14 +195,20 @@ def copy_to_tests(clients):
                     if not(os.path.exists(dd)):
                         comm = f'mkdir -p {dd}'
                         r = subprocess.run(comm.split())
+                    
+                    #print(ch)
+                    #print(dd)
+                    #print(num_chap[ch])
+                    #print(i)
                     comm = f'cp  /home/ubuntu/oapisip/comp/{k}/exercises/{num_chap[ch]}/home/{i} {path_copy}{k}/{ch}/{i}'
-                    r = subprocess.run(comm.split())
+                    #print(comm)
+                    r  = subprocess.run(comm.split())
                     
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def copy_tests_to_clients(clients):
-    """
+    """ 
     Копирование файлов тестов (test_xx_xx.cpp) в каталоги с выполненными домашними заданиями
     Путь к файлам тестов перечислены в tests.yaml
     """
@@ -203,22 +217,13 @@ def copy_tests_to_clients(clients):
     with open(path + 'tests.yaml') as f:
         tests_dir = yaml.safe_load(f)
     for cl in clients:
-        for k,v in tests_dir.items():
-            #print(k)
-            #print(len(v))
-            #if len(v)  != 0:
-            #    for i  in v:
-            #        ch  = i[5:7]
-            dd =  f'{path_copy}{cl}/{k}'
-            test_files=glob.glob(f'{v}/test*')
-            if os.path.exists(dd):
-                for ff in test_files:
-
-            #    comm = f'mkdir -p {dd}'
-            #    r = subprocess.run(comm.split())
-                    comm = f'cp {ff} {dd}'
-                #print (comm)
-                    r = subprocess.run(comm.split())
+         for k,v in tests_dir.items():
+             dd =  f'{path_copy}{cl}/{k}'
+             test_files=glob.glob(f'{v}/test*')
+             if os.path.exists(dd):
+                 for ff in test_files:
+                     comm = f'cp {ff} {dd}'
+                     r = subprocess.run(comm.split())
 #++++++++++++++++++++++++++++++++++++++++++++++++++
 
 

@@ -1,4 +1,26 @@
-12_funct/class/:
-        - ex_12_05.cpp
-        - ex_12_06.cpp
-       
+#06_while/home/:
+        #- task_06_01.cpp
+        #- task_06_02.cpp
+        #- task_06_03.cpp
+        #- task_06_04.cpp
+        #- task_06_06.cpp
+        #- README.md
+12_funct/home/:
+        - task_12_01.cpp
+        - task_12_02.cpp
+        - task_12_03.cpp
+        - task_12_04.cpp
+        - task_12_05.cpp
+        - task_12_06.cpp
+        - task_12_02.png
+        - test_12_01.cpp
+        - test_12_02.cpp
+        - test_12_03.cpp
+        - test_12_04.cpp
+        - test_12_05.cpp
+        - test_12_06.cpp
+        - testhomework
+        - testresult.yaml
+        - README.md
+        - test.png
+        - task_12_02.png
