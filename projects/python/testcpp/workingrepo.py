@@ -12,7 +12,7 @@ path =os.getcwd()+'/'
 path_update = '/home/ubuntu/oapisip/comp/'
 path_copy = '/home/ubuntu/oapisip/comp/tests/'
 path_source =  '/home/ubuntu/oapisip/comp/oap-is-20-template/exercises/'
-num_chap = {'01':'01_','02':'02_langcpp','03':'03_linprogr','04':'04_if','05':'05_for','06':'06_while','07':'07_array','08':'array2','12':'12_funct'}
+num_chap = {'01':'01_alg','02':'02_langcpp','03':'03_linprogr','04':'04_if','05':'05_for','06':'06_while','07':'07_array','08':'array2','12':'12_funct'}
 with open(path + 'clients.yaml') as f:
     clients = yaml.safe_load(f)
 
@@ -189,6 +189,22 @@ def conndb(sql='',val=[],):
         cur.executemany(sql,val)
 
         con.commit()
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def conndb_select(sql=''):
+    con=mysql.connector.connect(host='localhost',
+        user='admin',
+        password='AbrecJcz123',
+        database='oapisip')
+        #charset='utf8')
+        #ursorclass=pymysql.cursors.DictCursor)
+    cur = con.cursor()
+    cur.execute(sql)
+    #cur.execute("SELECT studID,taskID FROM marks")
+
+    myresult = cur.fetchall()
+    #pprint(myresult)
+    return myresult
 
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -206,7 +222,11 @@ def copy_to_tests(clients):
     attempt = 0
     mark = -1
     val=[]
-    
+    sql = "SELECT studID,taskID FROM marks"
+    exis_marks = conndb_select(sql)
+
+
+
     #for cl in clients:
 
         #print(cl)
@@ -241,7 +261,10 @@ def copy_to_tests(clients):
                     taskID  = i[0:10]
                     #print(k,' - ',taskID,' - ',mark,' - ',date,' - ',attempt)
                     
-                    val.append((k,taskID,mark))
+                    if (k,taskID)  in exis_marks:
+                        continue
+                    
+                    val. append((k,taskID,mark))
                     #aaa=input('dwedwedw')
                     #print(comm)               
     pprint(val)
@@ -268,7 +291,7 @@ def copy_tests_to_clients(clients):
              if os.path.exists(dd):
                  for ff in test_files:
                      comm = f'cp {ff} {dd}'
-                     r = subprocess.run(comm.split())
+                     r =  subprocess.run(comm.split())
 #++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
