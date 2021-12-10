@@ -5,6 +5,8 @@ import os
 import time
 import re
 import glob
+#import pymysql
+import mysql.connector
 
 path =os.getcwd()+'/'
 path_update = '/home/ubuntu/oapisip/comp/'
@@ -165,15 +167,34 @@ def git_log_all(clients=[],gp=False):
     #to_yaml = {'trunk': trunk_template, 'access': access_template}
 
     with open('git_log_dir.yaml', 'w') as f:
-            yaml.dump(git_log_dir, f, default_flow_style=False)
+             yaml.dump(git_log_dir, f, default_flow_style=False)
 
             #with open('sw_templates.yaml') as f:
             #       print(f.read())
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++
+def conndb(sql='',val=[],):
+    con=mysql.connector.connect(host='localhost',
+        user='admin',
+        password='AbrecJcz123',
+        database='oapisip')
+        #charset='utf8')
+        #ursorclass=pymysql.cursors.DictCursor)
+
+    with con:
+
+        cur = con.cursor()
+        #sql = "INSERT INTO marks (studID,taskID,mark,date,attempt) VALUES (%s,%s,%s,%s,%s)"
+        #val=  ('isip20_01','task_03_01',0,'2021-11-09',0)
+        cur.executemany(sql,val)
+
+        con.commit()
+
+
 #++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def copy_to_tests(clients):
-     """
+    """
     Копирование файлов заданий (task_.xx_xx.cpp) из каталогов .../home в каталоги для проверки
     Файлы перечислены в git_log_dir.yaml
     """
@@ -181,30 +202,54 @@ def copy_to_tests(clients):
     
     with open(path + 'git_log_dir.yaml') as f:
         git_log_dir = yaml.safe_load(f)
+    date = '2021-11-09'
+    attempt = 0
+    mark = -1
+    val=[]
     
-    
-    for cl in clients:
-        #print(cl)
-         for k,v in git_log_dir.items():
-            #print(k)
-            #print(len(v))
-            if len(v)  != 0:
-                for i  in v:
-                    ch  = i[5:7]
-                    dd =  f'{path_copy}{k}/{ch}'
-                    if not(os.path.exists(dd)):
-                        comm = f'mkdir -p {dd}'
-                        r = subprocess.run(comm.split())
-                    
-                    #print(ch)
-                    #print(dd)
-                    #print(num_chap[ch])
-                    #print(i)
-                    comm = f'cp  /home/ubuntu/oapisip/comp/{k}/exercises/{num_chap[ch]}/home/{i} {path_copy}{k}/{ch}/{i}'
-                    #print(comm)
-                    r  = subprocess.run(comm.split())
-                    
+    #for cl in clients:
 
+        #print(cl)
+    for k,v in git_log_dir.items():
+        #print(k)
+        #print(len(v))
+        if len(v)  != 0:
+            for i  in v:
+                ch  = i[5:7]
+                dd =  f'{path_copy}{k}/{ch}'
+                #print(dd)
+                #aaa=input('asdsa')
+                if not(os.path.exists(dd)):
+                    comm = f'mkdir -p {dd}'
+                    #print(comm)
+                    #aaa=input('sdsds')
+                    r = subprocess.run(comm.split())
+                
+                #print(ch)
+                #print(dd)
+                #print(num_chap[ch])
+                #print(i)
+              
+                comm = f'cp  /home/ubuntu/oapisip/comp/{k}/exercises/{num_chap[ch]}/home/{i} {path_copy}{k}/{ch}/{i}'
+                #print(comm)
+                #aaa=input('dwedwedw')
+                try:
+                    r  = subprocess.run(comm.split())
+                except:
+                    raise
+                if r.returncode == 0:
+                    taskID  = i[0:10]
+                    #print(k,' - ',taskID,' - ',mark,' - ',date,' - ',attempt)
+                    
+                    val.append((k,taskID,mark))
+                    #aaa=input('dwedwedw')
+                    #print(comm)               
+    pprint(val)
+    aaa=input('insert into db')
+    sql = "INSERT INTO marks (studID,taskID,mark) VALUES (%s,%s,%s)"
+    
+    conndb(sql,val)
+ 
 #++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def copy_tests_to_clients(clients):
@@ -264,8 +309,53 @@ def remove_ex_repo(clients=[], chap='', ex=''):
     os.chdir(path)
 
 
-#============================================================
+def msql():
+    """
+    Заполнение таблицы marks базы данных выполненных заданий (task_.xx_xx.cpp)
+    Файлы перечислены в git_log_dir.yaml
+    """
+    print('msql')
 
+    with open(path + 'git_log_dir.yaml') as f:
+        git_log_dir = yaml.safe_load(f)
+    '''
+    con=mysql.connector.connect(host='localhost',
+        user='admin',
+        password='AbrecJcz123',
+        database='oapisip')
+        #charset='utf8')
+        #ursorclass=pymysql.cursors.DictCursor)
+
+    with con: 
+ 
+        cur = con.cursor()
+        sql = "INSERT INTO marks (studID,taskID,mark,date,attempt) VALUES (%s,%s,%s,%s,%s)"
+        val=  ('isip20_01','task_03_01',0,'2021-11-09',0)
+        cur.execute(sql,val)
+        con.commit()
+
+    '''
+    date = '2021-11-09'
+    attempt = 0
+    mark = 2
+    val = []
+    for cl in clients:
+        #print(cl)
+        for k,v in git_log_dir.items():
+            if cl != k:
+                continue
+            #print(k)
+            #print(len(v))
+            if len(v)  != 0:
+                for i  in v:
+                    taskID  = i[0:10]
+                    #print(cl,' - ',taskID,' - ',mark,' - ',date,' - ',attempt)
+                    val.append((cl,taskID,mark,date,attempt))
+    #pprint(val)
+    sql = "INSERT INTO marks (studID,taskID,mark,date,attempt) VALUES (%s,%s,%s,%s,%s)"
+    conndb(sql,val)
+#============================================================
+     
 
 if __name__ == '__main__':
     pass
