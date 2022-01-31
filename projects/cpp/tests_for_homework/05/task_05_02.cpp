@@ -1,12 +1,26 @@
 /*
 Составить программу для решения следующей задачи: сколько можно купить быков, коров и телят, 
-платя за быка 10 р., за корову — 5 р., а за теленка — 0,5 р., если на 100 р. надо купить 100 голов скота?
+платя за быка (bull) 10 р., за корову (cow) — 5 р., а за теленка (calf) — 0,5 р., если на X р. надо купить Y голов скота?
+
+Решение оформить в виде функции pay_cattle 
+Вход: 2 аргумента
+    целое X - имеющаяся сумма, 
+    целое Y - необходимое количество голов скота  
+Выход: строка в формате "bull count_bull;cow count_cow;calf count_calf"
 */
 
 #include<iostream>
 #include<cmath>
 #include<stdio.h>
+#include<string>
 using namespace std;
+
+string pay_cattle(int X, int Y)
+{
+    string result="";
+    return result;
+}
+
 
 int main()
 {
@@ -25,4 +39,6 @@ int main()
                 if (cb*pb+ck*pk+ct*pt == summa && cb+ck+ct == 100)
                     cout<<"Быков - "<<cb<<" Коров - "<<ck<<" Телят - "<<ct<<endl;
             }
+    //pay_cattle(100, 100);
+    return 0;
 }

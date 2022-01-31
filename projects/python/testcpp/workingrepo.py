@@ -1,4 +1,5 @@
 import yaml
+import threading
 from pprint import pprint
 import subprocess
 import os
@@ -83,15 +84,34 @@ def git_update_all(clients=[]):
     os.chdir(path)
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def git_pull_all_thread(cl=''):
+    #for cl in clients:
+    print(f'git pull for {cl}')
+    chdir =  path_update  + cl
+    os.chdir(chdir)
+    git_pull = 'git pull'
+    r = subprocess.run(git_pull.split())
+    #time.sleep(5)
+    #os.chdir(path)
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 def git_pull_all(clients=[]):
+    threads = []
     for cl in clients:
-        print(f'git pull for {cl}')
-        chdir =  path_update  + cl
-        os.chdir(chdir)
-        git_pull = 'git pull'
-        r = subprocess.run(git_pull.split())
-        time.sleep(5)
+        thread = threading.Thread(target=git_pull_all_thread, args=(cl,))
+        thread.start()
+        threads.append(thread)
+
+        #print(f'git pull for {cl}')
+        #chdir =  path_update  + cl
+        #os.chdir(chdir)
+        #git_pull = 'git pull'
+        #r = subprocess.run(git_pull.split())
+        #time.sleep(5)
+    for thread in theads:
+        thread.join()
+
     os.chdir(path)
 
 #++++++++++++++++++++++++++++++++++++++++
@@ -102,7 +122,7 @@ def git_pull(cl=''):
     os.chdir(chdir)
     git_pull = 'git pull'
     r = subprocess.run(git_pull.split())
-    time.sleep(5)
+    #time.sleep(5)
     os.chdir(path)
 
 #+++++++++++++++++++++++++++++++++++++++++++
@@ -136,11 +156,22 @@ def git_log_all(clients=[],gp=False):
     Имена собираются в файл git_log_dir.yaml
     gp - параметр, определяющий необходимость выполнить команду git pull. По-умолчанию ОТКЛ (False)
     """
+    threads = []
 
     git_log_dir = {}
-    for cl in clients:
-        if gp:
-            git_pull(cl)
+    if gp:
+        for cl in clients:
+            #git_pull(cl)
+            thread = threading.Thread(target=git_pull_all_thread, args=(cl,))
+            thread.start()
+            threads.append(thread)
+
+        for thread in threads:
+            thread.join()
+        
+        
+        
+    for cl in clients:    
         print(f'git log for {cl}')
         chdir =   path_update  + cl
         os.chdir(chdir)
@@ -268,7 +299,7 @@ def copy_to_tests(clients):
                     #aaa=input('dwedwedw')
                     #print(comm)               
     pprint(val)
-    aaa=input('insert into db')
+    #aaa=input('insert into db')
     sql = "INSERT INTO marks (studID,taskID,mark) VALUES (%s,%s,%s)"
     
     conndb(sql,val)
@@ -381,23 +412,23 @@ def msql():
      
 
 if __name__ == '__main__':
-    pass
-    #with open(path + 'clients.yaml') as f:
-    #   clients = yaml.safe_load(f)
+    #    pass
+    with open(path + 'clients.yaml') as f:
+        clients = yaml.safe_load(f)
     #pprint (clients)
     #clients=['isip20_02','isip20_03']
 
-    #with open(path + 'chapters.yaml') as f:
-     #   chapters = yaml.safe_load(f)
+    with open(path + 'chapters.yaml') as f:
+        chapters = yaml.safe_load(f)
     #pprint (chapters)
 
-    #folders = ['class','home']
+    folders = ['class','home']
 
     #clone_repo(clients)
 
     #---------------------------------------------------------
     # Create folders 
-    #create_folders(clients, chapters,folders)
+    create_folders(clients, chapters,folders)
 
     #-----------------------------------------------------
 

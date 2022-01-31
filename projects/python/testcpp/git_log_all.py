@@ -13,7 +13,7 @@ if len(sys.argv) == 2:
     if sys.argv[1] == '-gp':
         gp = True
         print(gp)
-        tt = input('Input for next step')
+        #tt = input('Input for next step')
 
 #with open(path + 'remove_ex_repo.yaml') as f:
 #   dict_remove_ex_repo = yaml.safe_load(f)

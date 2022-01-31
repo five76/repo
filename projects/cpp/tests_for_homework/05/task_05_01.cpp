@@ -13,11 +13,13 @@ int func_ameba(int n)
     int k=1;
     for (int i=1;i<=3*n;i++)
     {
-        k = pow(2,i);
+        //k = pow(2,i);
         if (i%3 == 0)
         {
+           k=k*2;
            printf("\nКоличество амеб через %d часов равно %d",i,k);
         }
+
     }
     return k;
 }
@@ -25,7 +27,7 @@ int func_ameba(int n)
 int main()
 {
     int k=1;
-    int n=2;
+    int n=12;
     k = func_ameba(n);
     printf("\nКоличество амеб через %d часов равно %d",3*n,k);
     return 0;

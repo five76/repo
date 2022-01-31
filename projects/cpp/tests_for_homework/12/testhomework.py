@@ -85,7 +85,7 @@ def push_result_all(results=[]):
 
 
 def push_result(results=[],key=''):
-    pas sed_files=[]
+    passed_files=[]
     failed_files=[]
     os.chdir(d)
     git_file = key.replace('test','task')   
@@ -108,11 +108,11 @@ def push_result(results=[],key=''):
         r = subprocess.run(comm.split())
         passed_files.append(git_file)
         print('Successful verification and sent to github: ')
-         print(git_file)
+        print(git_file)
     else:
         if results[key] == 'FAILED':
             print('Failed verification: ')
-             print(git_file)
+            print(git_file)
 
 #----------MAIN-----------------
 
@@ -140,14 +140,14 @@ if (arg1 == '-a'):
     #yaml.dump(to_yaml, f, default_flow_style=False)
 
 else:
-     in_file = d + arg1
+    in_file = d + arg1
     out_obj_file = d+arg1[:-3] + 'out'
     out_result = d+arg1[:-3] + 'txt'
     #qqq=input("sada")
     r = test_file(in_file,out_obj_file,out_result)
     if r:
         fold,fname = os.path.split(in_file)
-         results[fname] = r
+        results[fname] = r
     
     #push_result(results,fname)
 

@@ -15,7 +15,6 @@ using namespace std;
 TEST(square_triangle, Negative) {
           
         EXPECT_EQ(3.897, square_triangle(3))<<"Функция возвращает неправильное значение"<<"Не та функция";
-        
         EXPECT_EQ(27.712, square_triangle(8))<<"Функция возвращает неправильное значение"<<"Не та функция";
         
        // EXPECT_EQ(333, subtr_summ(4597))<<"Функция возвращает неправильное значение"<<"Не та функция";

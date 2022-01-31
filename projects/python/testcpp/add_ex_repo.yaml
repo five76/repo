@@ -5,22 +5,37 @@
         #- task_06_04.cpp
         #- task_06_06.cpp
         #- README.md
-12_funct/home/:
-        - task_12_01.cpp
-        - task_12_02.cpp
-        - task_12_03.cpp
-        - task_12_04.cpp
-        - task_12_05.cpp
-        - task_12_06.cpp
-        - task_12_02.png
-        - test_12_01.cpp
-        - test_12_02.cpp
-        - test_12_03.cpp
-        - test_12_04.cpp
-        - test_12_05.cpp
-        - test_12_06.cpp
-        - testhomework
-        - testresult.yaml
-        - README.md
-        - test.png
-        - task_12_02.png
+#12_funct/home/:
+#        - task_12_01.cpp
+#        - task_12_02.cpp
+#        - task_12_03.cpp
+#        - task_12_04.cpp
+#        - task_12_05.cpp
+#        - task_12_06.cpp
+#        - task_12_02.png
+#        - test_12_01.cpp
+#        - test_12_02.cpp
+#        - test_12_03.cpp
+#        - test_12_04.cpp
+#        - test_12_05.cpp
+#        - test_12_06.cpp
+#        - testhomework
+#        - testresult.yaml
+#        - README.md
+#        - test.png
+#        - task_12_02.png
+#07_array/class/:
+#        - ex_07_01.cpp
+#        - ex_07_02.cpp
+#        - ex_07_03.cpp
+#        - ex_07_04.cpp
+#        - ex_07_05.cpp
+#        - ex_07_06.cpp
+#        - ex_07_07.cpp
+07_array/home/:
+        - task_07_01.cpp
+        - task_07_02.cpp
+        - task_07_03.cpp
+        - task_07_04.cpp
+        - task_07_05.cpp
+        

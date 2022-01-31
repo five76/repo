@@ -1,7 +1,7 @@
-test_05_01.cpp: PASSED
+test_05_01.cpp: none
 test_05_02.cpp: none
 test_05_03.cpp: none
-test_05_04.cpp: PASSED
+test_05_04.cpp: none
 test_05_05.cpp: none
 test_05_06.cpp: none
 test_05_07.cpp: none

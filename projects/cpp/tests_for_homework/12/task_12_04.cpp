@@ -13,8 +13,8 @@
 //#include"task_12_06.cpp"
 using namespace std;
 int result = 0;
-//int sum_digits(int num)
 
+//int sum_digits(int num)
 //нахождение сумм цифр числа
 int sum_digits(int num)
 {

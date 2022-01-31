@@ -43,9 +43,82 @@ def create_temp_cpp(in_file):
     #pass
     return 1
 
+def push_result_all(results=[]):
+    passed_files=[]
+    failed_files=[]
+    os.chdir(d)
+    for k,v in results.items():
+        git_file = k.replace('test','task')
+        #print(git_file)
+        
+        if v == 'PASSED':
+            with open(f'{git_file}','a') as f:
+                f.write('//verified')
+            #  print(f)
+            #git_file = k.replace('test','task')
+            comm  = f'git add {git_file}'
+
+            #print(comm)
+            r = subprocess.run(comm.split())
+            ccc = f'Done {git_file}'
+            comm  = f'git commit -m {ccc}'
+            r = subprocess.run(comm.split(' ',2))
+            #print(comm)
+            comm  = f'git push origin main'
+            #print(comm)
+            r = subprocess.run(comm.split())
+            passed_files.append(git_file)
+        else:
+            if v == 'FAILED':
+                failed_files.append(git_file)
+        #ttt=input('dasd')
+    print('Successful verification and sent to github: ')
+    for f in passed_files:
+        print(f)
+
+    print('Failed verification: ')
+    for f in failed_files:
+        print(f)
+    
+    print ('To view errors ')
+    print('insert command ./test_xx_xx.out')
+
+
+def push_result(results=[],key=''):
+    passed_files=[]
+    failed_files=[]
+    os.chdir(d)
+    git_file = key.replace('test','task')   
+        
+    if results[key] == 'PASSED':
+        with open(f'{git_file}','a') as f:
+            f.write('//verified')
+        #  print(f)
+        #git_file = k.replace('test','task')
+        comm  = f'git add {git_file}'
+
+        #print(comm)
+        r = subprocess.run(comm.split())
+        ccc = f'Done {git_file}'
+        comm  = f'git commit -m {ccc}'
+        r = subprocess.run(comm.split(' ',2))
+        #print(comm)
+        comm  = f'git push origin main'
+        #print(comm)
+        r = subprocess.run(comm.split())
+        passed_files.append(git_file)
+        print('Successful verification and sent to github: ')
+        print(git_file)
+    else:
+        if results[key] == 'FAILED':
+            print('Failed verification: ')
+            print(git_file)
+
+#----------MAIN-----------------
+
 with open(f'{d}testresult.yaml') as f:
     results = yaml.safe_load(f) 
-pprint(results)
+#pprint(results)
 
 if (arg1 == '-a'):
     files = glob.glob(f'{d}test_*.cpp')
@@ -60,6 +133,9 @@ if (arg1 == '-a'):
         fold,fname = os.path.split(in_file)
         results[fname] = r
 
+   # push_result_all(results)
+
+
 #with open('sw_templates.yaml', 'w') as f:
     #yaml.dump(to_yaml, f, default_flow_style=False)
 
@@ -72,8 +148,10 @@ else:
     if r:
         fold,fname = os.path.split(in_file)
         results[fname] = r
+    
+    #push_result(results,fname)
 
-pprint(results)
+#pprint(results)
 
 time.sleep(1)
 files = glob.glob(f'{d}tasktemp_*.cpp')
@@ -81,3 +159,44 @@ for i in files:
     os.remove(i)
 with open(f'{d}testresult.yaml','w') as f:
     yaml.dump(results, f, default_flow_style=False)
+
+#with open(f'{d}testresult.yaml') as f:
+#    results = yaml.safe_load(f) 
+#pprint(results)
+'''
+passed_files=[]
+failed_files=[]
+os.chdir(d)
+for k,v in results.items():
+    git_file = k.replace('test','task')
+    #print(git_file)
+    
+    if v == 'PASSED':
+        with open(f'{git_file}','a') as f:
+            f.write('//verified')
+          #  print(f)
+        #git_file = k.replace('test','task')
+        comm  = f'git add {git_file}'
+
+        #print(comm)
+        r = subprocess.run(comm.split())
+        ccc = f'Done {git_file}'
+        comm  = f'git commit -m {ccc}'
+        r = subprocess.run(comm.split(' ',2))
+        #print(comm)
+        comm  = f'git push origin main'
+        #print(comm)
+        r = subprocess.run(comm.split())
+         passed_files.append(git_file)
+    else:
+        if v == 'FAILED':
+             failed_files.append(git_file)
+    #ttt=input('dasd')
+print('Successful verification and sent to github: ')
+for f in passed_files:
+    print(f)
+
+print('Failed verification: ')
+for f in failed_files:
+    print(f)
+'''

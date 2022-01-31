@@ -14,8 +14,8 @@ using namespace std;
 TEST(func_ameba, Negative) {
         // This test is named "Negative", and belongs to the "FactorialTest"
         // test case
-        EXPECT_EQ(64, func_ameba(2))<<"Функция возвращает неправильное значение";
-        EXPECT_EQ(4096, func_ameba(4))<<"Функция возвращает неправильное значение";
+        EXPECT_EQ(8, func_ameba(3))<<"Функция возвращает неправильное значение";
+        EXPECT_EQ(4096, func_ameba(12))<<"Функция возвращает неправильное значение";
 }
 
 int main(int argc, char **argv) {
