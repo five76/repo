@@ -1,0 +1,155 @@
+{
+	"L-FW": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["HQ_L-FW"]
+		},
+		"ethernet1":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["WFO"]
+		},
+		"ethernet2":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["L-FW_172"]
+	        }
+		                                                                                
+	},
+	"DC":
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["L-FW_172"]
+		}
+	},
+	"L-SRV": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["L-FW_172"]
+		}
+	},
+	"HQ": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["HQ_L-FW"]
+		},
+		"ethernet1":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["HQ_ISP"]
+		}
+	},
+	"ISP": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["HQ_ISP"]
+		},
+		"ethernet1":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["BR_ISP"]
+		},
+		"ethernet2":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["VM Network"]
+		}
+	},
+	"BR": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["BR_ISP"]
+		},
+		"ethernet1":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["BR_R-FW"]
+		},
+		"ethernet2":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["BR_Otdel"]
+	        }
+		                                                                                
+	},
+	"OUT-CLI":
+	{
+	        "ethernet0":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["BR_ISP"]
+	        }
+	},
+	"R-FW": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["BR_R-FW"]
+		},
+		"ethernet1":
+		{
+		        "virtualDev" : ["vmxnet3"],
+		        "networkName": ["R-FW_192"]
+		},
+		"ethernet2":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["NULL0"]
+	        }
+		                                                                                
+	},
+	"WCLI-B": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["R-FW_192"]
+		}
+		                                                                                
+	},
+	"WCLI-01":
+	{
+	        "ethernet0":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["L-FW_172"]
+	        }
+	},
+	"R-SRV": 
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["R-FW_192"]
+		}
+	},
+	"LCLI-C":
+	{
+		"ethernet0":
+		{	
+			"virtualDev" : ["vmxnet3"],
+			"networkName": ["BR_Otdel"]
+		}
+	},
+	"WFO":
+	{
+	        "ethernet0":
+	        {
+	                "virtualDev" : ["vmxnet3"],
+	                "networkName": ["WFO"]
+	        }
+        }
+}
